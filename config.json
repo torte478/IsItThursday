@@ -4,41 +4,11 @@
 		{
 			"expression":
 			{
-				"operator": "and",
-				"first":
-				{
-					"filter": "year",
-					"value": 2020
-				},
-				"second":
-				{
-					"operator": "or",
-					"first":
-					{
-						"filter": "weekday",
-						"value": "friday"
-					},
-					"second":
-					{
-						"operator": "not",
-						"argument":
-						{
-							"filter": "day",
-							"value": 1
-						}
-					}
-				}		
+				"filter": "weekday",
+				"value": "thursday"
 			},
-			"result": "image1.jpg"
-		},
-		{
-			"expression":
-			{
-				"filter": "day",
-				"value": 2
-			},
-			"result":  "image2.jpg"
+			"result":  "thursday.jpg"
 		}
 	],
-	"otherwise": "image3.jpg"
+	"otherwise": "other.jpg"
 }
