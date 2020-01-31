@@ -8,17 +8,18 @@ def read_config(name):
         return data
 
 
-def get_match(name):
+def get_match(name, expected):
     switch = {
         'weekday': match_weekday,
         'day': match_day,
         'month': match_month,
         'year': match_year
         }
-    return switch.get(name)
+    match = switch.get(name)
+    return match(expected)
 
 
-def match_weekday(date, expected):
+def match_weekday(expected):
     weekdays = {
         'monday': 0,
         'tuesday': 1,
@@ -28,51 +29,41 @@ def match_weekday(date, expected):
         'saturday': 5,
         'sunday': 6
         }
-    match = date.weekday() == weekdays[expected]
-    return match
+    return lambda date: date.weekday() == weekdays[expected]
 
 
-def match_day(date, expected):
-    return date.day == int(expected)
+def match_day(expected):
+    return lambda date: date.day == int(expected)
 
 
-def match_month(date, expected):
-    return date.month == int(expected)
+def match_month(expected):
+    return lambda date: date.month == int(expected)
 
 
-def match_year(date, expected):
-    return date.year == int(expected)
+def match_year(expected):
+    return lambda date: date.year == int(expected)
 
 
-def match_all(date, conditions):
-    for condition in conditions:
-        match = get_match(condition['filter'])
-        if (match(date, condition['value']) == False): return False
-        
-    return True
-
-
-def solve_expression(expression, date):
+def build_expression(expression):
     if 'operator' in expression:
         if (expression['operator'] == 'not'):
-            return not(solve_expression(expression['argument'], date))
+            return not(build_expression(expression['argument']))
         else:
-            return solve_binary_expression(expression, date)
+            first = build_expression(expression['first'])
+            second = build_expression(expression['second'])
+            return (lambda x: first(x) and second(x)) if expression['operator'] == 'and' else (lambda x: first(x) or second(x))
     else:
-        match = get_match(expression['filter'])
-        return match(date, expression['value'])
-
-
-def solve_binary_expression(expression, date):
-    first = solve_expression(expression['first'], date)
-    second = solve_expression(expression['second'], date)
-    return (first and second) if expression['operator'] == 'and' else (first or second)
+        return get_match(expression['filter'], expression['value'])
 #            
 #
 #
 #
+#'''
 config = read_config('config.json')
+condition = build_expression(config)
 today = datetime.date.today()
-result = solve_expression(config, today)
+
+result = condition(today)
 
 print(result)
+#'''
