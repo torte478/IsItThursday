@@ -1,3 +1,4 @@
 {
-	"weekday": "thursday"
+	"filter": "weekday",
+	"value": "thursday"
 }
