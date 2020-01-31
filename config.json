@@ -1,0 +1,14 @@
+{
+	"case":
+	[
+		{
+			"expression":
+			{
+				"filter": "weekday",
+				"value": "thursday"
+			},
+			"result":  "thursday.jpg"
+		}
+	],
+	"otherwise": "other.jpg"
+}
