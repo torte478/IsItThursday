@@ -22,7 +22,7 @@ def match_weekday(date, expected):
     weekdays = {
         'monday': 0,
         'tuesday': 1,
-        'wendesday': 2,
+        'wednesday': 2,
         'thursday': 3,
         'friday': 4,
         'saturday': 5,
@@ -52,12 +52,27 @@ def match_all(date, conditions):
     return True
 
 
-def logic_not(match, date, expected):
-    return not(match(date, expected))
+def solve_expression(expression, date):
+    if 'operator' in expression:
+        if (expression['operator'] == 'not'):
+            return not(solve_expression(expression['argument'], date))
+        else:
+            return solve_binary_expression(expression, date)
+    else:
+        match = get_match(expression['filter'])
+        return match(date, expression['value'])
 
+
+def solve_binary_expression(expression, date):
+    first = solve_expression(expression['first'], date)
+    second = solve_expression(expression['second'], date)
+    return (first and second) if expression['operator'] == 'and' else (first or second)
+#            
+#
+#
+#
 config = read_config('config.json')
 today = datetime.date.today()
-match = get_match(config['argument']['filter'])
-result = logic_not(match, today, config['argument']['value'])
+result = solve_expression(config, today)
 
 print(result)

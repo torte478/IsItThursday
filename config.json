@@ -1,8 +1,26 @@
 {
-	"operator": "not",
-	"argument":
+	"operator": "and",
+	"first":
 	{
-		"filter": "day",
-		"value": 31
+		"filter": "year",
+		"value": 2020
+	},
+	"second":
+	{
+		"operator": "or",
+		"first":
+		{
+			"filter": "weekday",
+			"value": "friday"
+		},
+		"second":
+		{
+			"operator": "not",
+			"argument":
+			{
+				"filter": "day",
+				"value": 1
+			}
+		}
 	}
 }
