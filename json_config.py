@@ -1,10 +1,12 @@
 import datetime
 import json
 
+
 def read_config(name):
     with open(name) as file:
         data = json.load(file)
-        return data['conditions']
+        return data
+
 
 def get_match(name):
     switch = {
@@ -14,6 +16,7 @@ def get_match(name):
         'year': match_year
         }
     return switch.get(name)
+
 
 def match_weekday(date, expected):
     weekdays = {
@@ -28,11 +31,14 @@ def match_weekday(date, expected):
     match = date.weekday() == weekdays[expected]
     return match
 
+
 def match_day(date, expected):
     return date.day == int(expected)
 
+
 def match_month(date, expected):
     return date.month == int(expected)
+
 
 def match_year(date, expected):
     return date.year == int(expected)
@@ -45,8 +51,13 @@ def match_all(date, conditions):
         
     return True
 
-conditions = read_config('config.json')
+
+def logic_not(match, date, expected):
+    return not(match(date, expected))
+
+config = read_config('config.json')
 today = datetime.date.today()
-result = match_all(today, conditions)
+match = get_match(config['argument']['filter'])
+result = logic_not(match, today, config['argument']['value'])
 
 print(result)

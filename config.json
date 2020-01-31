@@ -1,13 +1,8 @@
 {
-	"conditions":
-	[
-		{
-			"filter": "weekday",
-			"value": "friday"
-		},
-		{
-			"filter": "day",
-			"value": 13
-		}
-	]
+	"operator": "not",
+	"argument":
+	{
+		"filter": "day",
+		"value": 31
+	}
 }
