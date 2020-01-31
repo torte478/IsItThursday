@@ -1,26 +1,44 @@
 {
-	"operator": "and",
-	"first":
-	{
-		"filter": "year",
-		"value": 2020
-	},
-	"second":
-	{
-		"operator": "or",
-		"first":
+	"case":
+	[
 		{
-			"filter": "weekday",
-			"value": "friday"
+			"expression":
+			{
+				"operator": "and",
+				"first":
+				{
+					"filter": "year",
+					"value": 2020
+				},
+				"second":
+				{
+					"operator": "or",
+					"first":
+					{
+						"filter": "weekday",
+						"value": "friday"
+					},
+					"second":
+					{
+						"operator": "not",
+						"argument":
+						{
+							"filter": "day",
+							"value": 1
+						}
+					}
+				}		
+			},
+			"result": "image1.jpg"
 		},
-		"second":
 		{
-			"operator": "not",
-			"argument":
+			"expression":
 			{
 				"filter": "day",
-				"value": 1
-			}
+				"value": 2
+			},
+			"result":  "image2.jpg"
 		}
-	}
+	],
+	"otherwise": "image3.jpg"
 }
