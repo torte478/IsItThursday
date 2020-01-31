@@ -1,4 +1,4 @@
 {
-	"filter": "weekday",
-	"value": "thursday"
+	"filter": "month",
+	"value": 1
 }
