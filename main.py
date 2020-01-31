@@ -10,7 +10,7 @@ def get_is_thursday_value():
     return weekday == THURSDAY_INDEX
 
 
-def get_image_path( thursday ):
+def get_image_name( thursday ):
     return "thursday.jpg" if thursday else "other.jpg"
 
 
@@ -31,5 +31,5 @@ def set_wallpaper( fileName ):
     
 
 thursday = get_is_thursday_value()
-image = get_image_path(thursday)
+image = get_image_name(thursday)
 set_wallpaper(image)
