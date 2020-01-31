@@ -1,4 +1,13 @@
 {
-	"filter": "month",
-	"value": 1
+	"conditions":
+	[
+		{
+			"filter": "weekday",
+			"value": "friday"
+		},
+		{
+			"filter": "day",
+			"value": 13
+		}
+	]
 }

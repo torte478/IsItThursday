@@ -4,9 +4,9 @@ import json
 def read_config(name):
     with open(name) as file:
         data = json.load(file)
-        return (data['filter'], data['value'])
+        return data['conditions']
 
-def get_condition(name):
+def get_match(name):
     switch = {
         'weekday': match_weekday,
         'day': match_day,
@@ -38,12 +38,15 @@ def match_year(date, expected):
     return date.year == int(expected)
 
 
+def match_all(date, conditions):
+    for condition in conditions:
+        match = get_match(condition['filter'])
+        if (match(date, condition['value']) == False): return False
+        
+    return True
 
-
-config = read_config('config.json')
-
+conditions = read_config('config.json')
 today = datetime.date.today()
-condition = get_condition(config[0])
-result = condition(today, config[1])
+result = match_all(today, conditions)
 
 print(result)
