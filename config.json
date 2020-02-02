@@ -4,17 +4,26 @@
 		{
 			"expression":
 			{
-				"filter": "weekday",
-				"value": "sunday"
+				"operator": "and",
+				"first":
+				{
+					"filter": "weekday",
+					"value": "sunday"				
+				},
+				"second":
+				{
+					"filter": "day",
+					"value": 2
+				}
 			},
 			"result":  
 			{
 				"type": "sequence",
 				"values":
 				[
-					"thursday.jpg",
-					"thursday1.jpg",
-					"thursday2.jpg"
+					"resources\\thursday.jpg",
+					"resources\\thursday1.jpg",
+					"resources\\thursday2.jpg"
 				]
 			}
 		}
@@ -24,9 +33,9 @@
 		"type": "random",
 		"values":
 		[
-			"thursday.jpg",
-			"thursday1.jpg",
-			"thursday2.jpg"
+			"resources\\thursday.jpg",
+			"resources\\thursday1.jpg",
+			"resources\\thursday2.jpg"
 		]
 	}		
 }
