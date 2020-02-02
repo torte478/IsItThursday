@@ -1,4 +1,5 @@
 import json
+import os
 import random
 
 def read_from_file(name):
@@ -26,15 +27,46 @@ def __build_expression(expression, token):
         else:
             first = __build_expression(expression['first'])
             second = __build_expression(expression['second'])
-            return (lambda x: first(x) and second(x)) if expression['operator'] == 'and' else (lambda x: first(x) or second(x))
+            return (lambda x: first(x) and second(x)) \
+                    if expression['operator'] == 'and' \
+                    else (lambda x: first(x) or second(x))
     else:
         return token(expression)
 
 def __get_image_name(result):
-    if ('type' in result):
-        if result['type'] == 'random':
-            return random.choice(result['values'])
-        else:
-            raise "Not implemented!"
+    return __get_image_from_multiple(result['type'], result['values']) \
+           if 'type' in result \
+           else result
+
+def __get_image_from_multiple(type, values):
+    if type == 'random':
+        return random.choice(values)
     else:
-        return result
+        index = __get_index_from_file()
+        return values[index % len(values)]
+
+def __get_index_from_file():
+    name = 'data.iit'
+    __check_file_existing(name)
+    
+    index = __read_index_from_file(name)
+    __write_index_to_file(name, index + 1)
+
+    return index
+
+def __read_index_from_file(name):
+    file = open(name, 'r')
+    index = int(file.readline())
+    file.close()
+    return index
+
+def __write_index_to_file(name, index):
+    file = open(name, 'w')
+    file.write(str(index % 100))
+    file.close()
+    return
+
+def __check_file_existing(name):
+    if not(os.path.exists(name)):
+        __write_index_to_file(name, 0)
+    return
