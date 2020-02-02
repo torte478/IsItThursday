@@ -1,5 +1,5 @@
 {
-	"case":
+	"cases":
 	[
 		{
 			"expression":
@@ -19,5 +19,14 @@
 			}
 		}
 	],
-	"otherwise": "other.jpg"
+	"otherwise":
+	{
+		"type": "random",
+		"values":
+		[
+			"thursday.jpg",
+			"thursday1.jpg",
+			"thursday2.jpg"
+		]
+	}		
 }

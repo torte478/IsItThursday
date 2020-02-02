@@ -1,7 +1,7 @@
-class Config_File:
+class Text_File:
 	def __init__(self, path):
 		self.path = path
 
-	def config(self):
+	def text(self):
 		with open(self.path, 'r') as file:
 			return file.read()
