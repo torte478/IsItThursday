@@ -63,14 +63,3 @@ def run_cases(cases, value):
         if match: return case['result']
 
     return cases['otherwise']    
-#            
-#
-#
-#
-#'''
-config = read_config('config.json')
-today = datetime.date.today()
-result = run_cases(config, today)
-
-print(result)
-#'''
