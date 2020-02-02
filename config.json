@@ -4,17 +4,8 @@
 		{
 			"expression":
 			{
-				"operator": "and",
-				"first":
-				{
-					"filter": "weekday",
-					"value": "sunday"				
-				},
-				"second":
-				{
-					"filter": "day",
-					"value": 2
-				}
+				"filter": "weekday",
+				"value": "monday"	
 			},
 			"result":  
 			{
@@ -30,12 +21,10 @@
 	],
 	"otherwise":
 	{
-		"type": "random",
+		"type": "sequence",
 		"values":
 		[
-			"resources\\thursday.jpg",
-			"resources\\thursday1.jpg",
-			"resources\\thursday2.jpg"
+			"resources\\other.jpg"
 		]
-	}		
+	}
 }

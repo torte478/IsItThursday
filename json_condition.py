@@ -1,3 +1,4 @@
+#TODO : refactor
 from expressions.expression import *
 from expressions.and_expression import *
 from expressions.not_expression import *
@@ -6,7 +7,7 @@ from expressions.case import *
 from expressions.condition import *
 from images.enumerable import *
 from images.random import *
-
+from datetime_filters import *
 
 #TODO : remove constructors
 class Json_Condition:
@@ -30,7 +31,19 @@ class Json_Condition:
 		if 'operator' in expression:
 			return self.__build_complicate_expression(expression)
 		else:
-			return Expression(expression['filter'], expression['value'])
+			return self.__build_token(expression['filter'], expression['value'])
+
+	def __build_token(self, name, expected):
+		if name == 'weekday':
+			return Weekday_Filter(expected)
+		else:
+			if name == 'day':
+				return Day_Filter(expected)
+			else:
+				if name == 'month':
+					return Month_Filter(expected)
+				else:
+					return Year_Filter(expected)
 
 	def __build_complicate_expression(self, expression):
 		if expression['operator'] == 'not':
@@ -45,5 +58,5 @@ class Json_Condition:
 
 	def __build_images(self, images):
 		return Random_Images(images['values']) \
-				if images['type'] == 'random' \
-				else Enumerable_Images(images['values'])
+					if images['type'] == 'random' \
+					else Enumerable_Images(images['values'])
