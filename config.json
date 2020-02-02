@@ -5,9 +5,18 @@
 			"expression":
 			{
 				"filter": "weekday",
-				"value": "thursday"
+				"value": "sunday"
 			},
-			"result":  "thursday.jpg"
+			"result":  
+			{
+				"type": "random",
+				"values":
+				[
+					"thursday.jpg",
+					"thursday1.jpg",
+					"thursday2.jpg"
+				]
+			}
 		}
 	],
 	"otherwise": "other.jpg"
