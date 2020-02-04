@@ -1,8 +1,8 @@
 import random
 
-class Random_Images:
-	def __init__(self, images):
-		self.images = images
+class Random:
+	def __init__(self, values):
+		self.values = values
 
-	def next(self):
-		return random.choice(self.images)
+	def resolve(self):
+		return random.choice(self.values)

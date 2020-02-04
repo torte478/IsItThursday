@@ -1,11 +1,11 @@
 #TODO : refactor
-from expressions.expression import *
 from expressions.and_expression import *
 from expressions.not_expression import *
 from expressions.or_expression import *
 from expressions.case import *
 from expressions.condition import *
 from images.enumerable import *
+from images.file_index import *
 from images.random import *
 from datetime_filters import *
 
@@ -34,16 +34,17 @@ class Json_Condition:
 			return self.__build_token(expression['filter'], expression['value'])
 
 	def __build_token(self, name, expected):
+		factory = Date_Filters()
 		if name == 'weekday':
-			return Weekday_Filter(expected)
+			return factory.weekday(expected)
 		else:
 			if name == 'day':
-				return Day_Filter(expected)
+				return factory.day(expected)
 			else:
 				if name == 'month':
-					return Month_Filter(expected)
+					return factory.month(expected)
 				else:
-					return Year_Filter(expected)
+					return factory.year(expected)
 
 	def __build_complicate_expression(self, expression):
 		if expression['operator'] == 'not':
@@ -57,6 +58,6 @@ class Json_Condition:
 					else Or_Expression(first, second)
 
 	def __build_images(self, images):
-		return Random_Images(images['values']) \
+		return Random(images['values']) \
 					if images['type'] == 'random' \
-					else Enumerable_Images(images['values'])
+					else Enumerable(images['values'], File_Index('data.iit'))

@@ -3,7 +3,7 @@ import json
 
 from json_condition import Json_Condition
 from text_file import Text_File
-import windows_api
+from windows_api import Windows_Wallpaper
 
 
 condition = Json_Condition( \
@@ -14,6 +14,6 @@ condition = Json_Condition( \
 				) \
 			.condition()
 
-image = condition.result(datetime.date.today())
+image = condition.resolve(datetime.date.today())
 print(image)
-windows_api.set_wallpaper(image)
+Windows_Wallpaper(image).set()

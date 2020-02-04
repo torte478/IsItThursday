@@ -1,6 +1,5 @@
 import datetime
 
-#TODO: remove duplicate code
 class Weekday_Filter:
 	def __init__(self, expected):
 		self.expected = expected
@@ -17,23 +16,23 @@ class Weekday_Filter:
 		}
 		return date.weekday() == weekdays[self.expected]
 
-class Day_Filter:
-	def __init__(self, expected):
+class Date_Filter:
+	def __init__(self, get_value, expected):
+		self.get_value = get_value
 		self.expected = int(expected)
 
 	def result(self, date):
-		return date.day == self.expected
+		return self.get_value(date) == self.expected
 
-class Month_Filter:
-	def __init__(self, expected):
-		self.expected = int(expected)
+class Date_Filters:
+	def day(self, expected):
+		return Date_Filter(lambda date: date.day, expected)
 
-	def result(self, date):
-		return date.month == self.expected
+	def month(self, expected):
+		return Date_Filter(lambda date: date.month, expected)
 
-class Year_Filter:
-	def __init__(self, expected):
-		self.expected = int(expected)
+	def year(self, expected):
+		return Date_Filter(lambda date: date.year, expected)
 
-	def result(self, date):
-		return date.year == self.expected
+	def weekday(self, expected):
+		return Weekday_Filter(expected)

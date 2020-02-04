@@ -1,13 +1,11 @@
-#TODO : next() is bad
-
 class Condition:
 	def __init__(self, cases, otherwise):
 		self.cases = cases
 		self.otherwise = otherwise
 
-	def result(self, argument):
+	def resolve(self, argument):
 		for case in self.cases:
 			if case.expression.result(argument):
-				return case.result.next()
+				return case.result.resolve()
 
-		return self.otherwise.next()
+		return self.otherwise.resolve()
