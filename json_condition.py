@@ -24,7 +24,7 @@ class Json_Condition:
 		for case in cases:
 			expression = self.__build_expression(case['expression'])
 			images = self.__build_images(case['result'])
-			result.append(Case(expression, result))
+			result.append(Case(expression, images))
 		return result
 
 	def __build_expression(self, expression):

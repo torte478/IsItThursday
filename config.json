@@ -4,8 +4,8 @@
 		{
 			"expression":
 			{
-				"filter": "weekday",
-				"value": "monday"	
+				"filter": "day",
+				"value": "3"	
 			},
 			"result":  
 			{
